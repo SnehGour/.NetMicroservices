@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plateforms-depl
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: plateformservice
+  template: 
+    metadata:
+      labels: 
+        app: plateformservice
+    spec:
+      containers:
+        - name: plateformservice
+          image: snehgour80/plateformservice
+
+        

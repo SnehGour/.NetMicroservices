@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlateformService.Data;
 using PlateformService.DTOs;
 using PlateformService.Models;
+using PlateformService.SyncDataService.Http;
 
 namespace PlateformService.Controllers
 {
@@ -12,11 +13,13 @@ namespace PlateformService.Controllers
     {
         private readonly IPlateformRepo _repo;
         private readonly IMapper _mapper;
+        private readonly ICommandDataClient _client;
 
-        public PlateformsController(IPlateformRepo repo, IMapper mapper)
+        public PlateformsController(IPlateformRepo repo, IMapper mapper,ICommandDataClient client)
         {
             _repo = repo;
             _mapper = mapper;
+            _client = client;
         }
 
         [HttpGet]
@@ -39,13 +42,23 @@ namespace PlateformService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PlateformReadDTO> CreatePlateform(PlateformCreateDTO plateformCreateDTO)
+        public async Task<ActionResult<PlateformReadDTO>> CreatePlateform(PlateformCreateDTO plateformCreateDTO)
         {
+            Console.WriteLine("--->Creating Plateform...");
             var plateformModel = _mapper.Map<Plateform>(plateformCreateDTO);
             _repo.CreatePlateform(plateformModel);
             _repo.SaveChanges();
 
             var plateformItem = _mapper.Map<PlateformReadDTO>(plateformModel);
+
+            try
+            {
+                await _client.SendPlateformToCommand(plateformItem);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"---> Error: {ex.Message}");
+            }
             return CreatedAtRoute(nameof(GetPlateformById), new { Id = plateformItem.Id }, plateformItem);
         }
     }

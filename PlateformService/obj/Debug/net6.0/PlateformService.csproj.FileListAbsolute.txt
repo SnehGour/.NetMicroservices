@@ -83,3 +83,4 @@ C:\Users\snehg\OneDrive\Desktop\GettingPowerFull\dotNet\microservices\PlateformS
 C:\Users\snehg\OneDrive\Desktop\GettingPowerFull\dotNet\microservices\PlateformService\obj\Debug\net6.0\ref\PlateformService.dll
 C:\Users\snehg\OneDrive\Desktop\GettingPowerFull\dotNet\microservices\PlateformService\obj\Debug\net6.0\PlateformService.pdb
 C:\Users\snehg\OneDrive\Desktop\GettingPowerFull\dotNet\microservices\PlateformService\obj\Debug\net6.0\PlateformService.genruntimeconfig.cache
+C:\Users\snehg\OneDrive\Desktop\GettingPowerFull\dotNet\microservices\PlateformService\bin\Debug\net6.0\appsettingd.Production.json

@@ -14,6 +14,19 @@ spec:
     spec:
       containers:
         - name: plateformservice
-          image: snehgour80/plateformservice
-
+          image: snehgour80/plateformservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: plateforms-clusterip-srv
+spec: 
+  type: ClusterIP
+  selector: 
+    app: plateformservice
+  ports: 
+    - name: plateformservice
+      protocol: TCP
+      port: 80
+      targetPort: 80
         

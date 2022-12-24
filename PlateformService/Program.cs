@@ -8,9 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Add DbContext to Container
-
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
 
 // Add Repository to Container
 builder.Services.AddScoped<IPlateformRepo,PlateformRepo>();
@@ -29,8 +26,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Add DbContext to Container
+
+    builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    
 }
 
 app.UseHttpsRedirection();
